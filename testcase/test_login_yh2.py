@@ -30,7 +30,7 @@ class Test_Login:
     # 每1个元组代表1条用例的传参,依次获取
     @pytest.mark.parametrize('username,password,result',[
         ('test1','test1','欢迎您：test1 | 退出'),
-        ('daixiuxiu','test1','用户名错误'),
+        ('dxx','test1','用户名错误'),
         ('test1',123456,'密码错误')
     ],
     #定义依次执行的用例名称
