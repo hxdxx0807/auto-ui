@@ -1,0 +1,27 @@
+1.基础环境（win7系统）
+    python解释器3.9.5 + chrome109.0.5414.120 + chromedriver109.0.5414.74 + django项目配套的被测系统
+其中chromedriver109.0.5414.74未找到120版本，后续可能存在部分兼容性问题
+1）下载好chromedriver后，需添加到环境变量，并将驱动.exe文件复制到chrome安装路径、python安装路径下
+2）由于selenium版本较低，需使用from selenium.webdriver.chrome.service import Service导入service
+
+2.UI自动化3种等待方式
+1）固定等待  time.sleep(5)
+2）隐式等待  driver.implicitly_wait(30)   等待页面元素加载完成，只要是通过同一个driver对象调用的函数或方法，隐式等待均会生效‌
+3）显式等待  针对特定条件（如元素可点击、可见等）设置等待时间，更灵活，需结合特定场景使用
+
+3.页面元素定位，推荐使用xpath定位
+可以下载chrome的一个插件selectorsHub，将其加载至chrome的扩展程序里面，更准确、方便使用xpath定位
+
+4.pytest+allure框架
+1）测试文件需以 test_ 开头或 _test.py 结尾‌
+2）测试类/方法需以 Test 开头（类名）或 test_ 开头（方法名）‌
+3）测试类中若定义了 __init__ 方法，需移除（pytest 测试类不支持初始化函数）‌
+4）确保测试方法未包含非 pytest 的参数（如 self 之外的参数需用 pytest 参数化语法）‌
+
+5.一般思路是先分条实现用例，然后在观察是否存在部分相同操作-->考虑优化
+发现多条用例中有部分步骤的操作是相同，且参数类型相同，只是数据不同时，可以使用pytest进行用例参数化：
+@pytest.mark.parametrize("参数名", 数据集)
+1)其中“参数名”可以包含多个参数，只需要用1对双引或单引号包括，中间用逗号隔开，如“username,password,result”,result一般用来放断言内容
+2）参数名要跟进行参数化的用例（方法）中的形参名一致
+3)数据集支持用元组或列表，每一组代表1条用例的所有传参，结合需要传参的用例数可以有多个，如[('huxu','123456','用户名错误'),('ddd','ddd','密码错误'),...]
+4）多条用例后续不相同的操作可以用if条件判断来分开执行
