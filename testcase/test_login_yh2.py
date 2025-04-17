@@ -19,9 +19,9 @@ class Test_Login:
     def setup_class(self):
         self.service = Service(executable_path="D:\Downloads\chromedriver_win32\chromedriver.exe")  # 指定驱动路径
         self.driver = webdriver.Chrome(service=self.service)  # 获取chrome实例，打开浏览器
-        # self.driver.get("http://127.0.0.1:8000/")  # 访问被测系统地址
-        # self.driver.maximize_window()  # 最大化窗口
-        # self.driver.implicitly_wait(10)  # 全局隐式等待
+        self.driver.get("http://127.0.0.1:8000/")  # 访问被测系统地址
+        self.driver.maximize_window()  # 最大化窗口
+        self.driver.implicitly_wait(10)  # 全局隐式等待
     #后置条件   类中用例执行完后再执行后置条件
     def teardown_class(self):
         self.driver.quit()
@@ -42,8 +42,8 @@ class Test_Login:
     def test_shoping_mall(self,username,password,result):
         #登录模块用例的部分公共操作步骤，只是传参不同
         self.driver.get("http://127.0.0.1:8000/")  # 访问被测系统地址
-        self.driver.maximize_window()  # 最大化窗口
-        self.driver.implicitly_wait(10)  # 全局隐式等待
+        # self.driver.maximize_window()  # 最大化窗口
+        # self.driver.implicitly_wait(10)  # 全局隐式等待
         self.driver.find_element(By.XPATH,"//a[contains(text(),'登录')]").click()
         self.driver.find_element(By.XPATH,"//input[@placeholder='请输入用户名']").send_keys(username) #获取xpath地址，输入用户名
         self.driver.find_element(By.XPATH,"//input[@placeholder='请输入密码']").send_keys(password)  #获取xpath地址，输入密码
