@@ -8,8 +8,10 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 import time
+from settings import ENV  #将settings.py文件作为库导入ENV类
 
 class Test_Login:
+    # 优化后前置后置都移入了conftest.py文件
     # #前置条件  调用类时先执行前置条件
     # def setup_class(self):
     #     self.service = Service(executable_path="D:\Downloads\chromedriver_win32\chromedriver.exe")  # 指定驱动路径
@@ -38,7 +40,8 @@ class Test_Login:
     def test_shoping_mall(self,username,password,result,login):   #login参数接收conftest文件中login的返回值driver
         #登录模块用例的部分公共操作步骤，只是传参不同
         driver = login
-        driver.get("http://127.0.0.1:8000/")  # 访问被测系统地址
+        # driver.get("http://127.0.0.1:8000/")  # 访问被测系统地址
+        driver.get(ENV.url)   #将settings.py文件中的ENV类属性url参数化引入
         driver.find_element(By.XPATH,"//a[contains(text(),'登录')]").click()
         driver.find_element(By.XPATH,"//input[@placeholder='请输入用户名']").send_keys(username) #获取xpath地址，输入用户名
         driver.find_element(By.XPATH,"//input[@placeholder='请输入密码']").send_keys(password)  #获取xpath地址，输入密码

@@ -32,7 +32,7 @@ hxdxx0807/2282751924@qq.com/hxdxx2282751924
 2.生成公钥、密钥，添加密钥、绑定公钥
 3.配置pycharm的git地址、关联github仓库
 
-7.项目根目录下的conftest.py‌：理论上可作用于整个项目（包括所有子目录）‌
+7.项目根目录下的conftest.py‌：理论上可作用于整个项目（包括所有子目录）‌，一般用来定义前置条件和后置条件的方法
 实际遇到的问题背景：当conftest.py在项目根目录下，通过pycharm的run test按钮去执行testcase目录下的用例，提示fixture 'login' not found
 解决方法：检查run->edit config->修改run test的Working Directory为项目根目录，这样conftest.pu才能作用于整个项目根目录
 @pytest.fixture(scope='class') 使用
@@ -49,3 +49,6 @@ Fixture作用域优先级遵循session > module > class > function
 2）参数名要跟进行参数化的用例（方法）中的形参名一致
 3)数据集支持用元组或列表，每一组代表1条用例的所有传参，结合需要传参的用例数可以有多个，如[('huxu','123456','用户名错误'),('ddd','ddd','密码错误'),...]
 4）多条用例后续不相同的操作可以用if条件判断来分开执行
+
+9.在项目根目录下创建settings.py文件，一般用来声明测试环境配置信息的类，如被测地址
+用例需要调用时可以将settings.py文件作为库来导入其中的类   如from settings import ENV  #将settings.py文件作为库导入ENV类
