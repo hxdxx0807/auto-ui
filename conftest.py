@@ -1,4 +1,6 @@
 import pytest
+from common.sql import MysqlAuto
+from settings import DBSql
 from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
 
@@ -15,6 +17,7 @@ def login():
     log.debug("最大化窗口")   #以debug级别打印日志
     driver.maximize_window()  # 最大化窗口
     driver.implicitly_wait(10)  # 全局隐式等待
+    MysqlAuto().execute(DBSql.sql_list)   #前置条件中先执行sql初始化环境的语句
     yield driver   #yield生成器函数，执行到这里暂停，并将driver作为返回值
     log.debug("关闭浏览器")   #以debug级别打印日志
     #后置条件语句

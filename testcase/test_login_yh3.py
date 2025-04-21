@@ -4,9 +4,7 @@
 """
 
 import pytest
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from selenium import webdriver
 import time
 from settings import ENV  #将settings.py文件作为库导入ENV类
 
